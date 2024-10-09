@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // Import for SharedPreferences
 import 'home_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -123,25 +124,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     _errorMessage,
                     style: TextStyle(color: Colors.red),
                   ),
-                firebaseUIButton(context, "Sign Up", () {
+                firebaseUIButton(context, "Sign Up", () async {
                   if (_passwordTextController.text.length < 8) {
                     setState(() {
                       _errorMessage =
                           "Password must be at least 8 characters long!";
                     });
                   } else {
-                    FirebaseAuth.instance
-                        .createUserWithEmailAndPassword(
-                            email: _emailTextController.text,
-                            password: _passwordTextController.text)
-                        .then((value) {
+                    try {
+                      UserCredential userCredential = await FirebaseAuth
+                          .instance
+                          .createUserWithEmailAndPassword(
+                              email: _emailTextController.text,
+                              password: _passwordTextController.text);
+
+                      // Store username and email in SharedPreferences
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      await prefs.setString(
+                          'name', _userNameTextController.text);
+                      await prefs.setString('email', _emailTextController.text);
+
+                      // Navigate to HomePage after signup
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => HomePage()));
-                    }).onError((error, stackTrace) {
+                    } catch (error) {
                       setState(() {
                         _errorMessage = "Error: ${error.toString()}";
                       });
-                    });
+                    }
                   }
                 }),
               ],

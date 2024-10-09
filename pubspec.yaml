@@ -12,6 +12,8 @@ dependencies:
   firebase_auth: ^5.3.1
   firebase_core: ^3.6.0
   google_fonts: ^6.2.1
+  image_picker: ^1.1.2
+  shared_preferences: ^2.3.2
 
 dev_dependencies:
   flutter_test:
@@ -24,3 +26,9 @@ flutter:
   assets:
     - assets/images/
     - assets/images/start_gif.gif
+    - assets/images/home.png
+    - assets/images/food.jpeg
+    - assets/images/electrical.jpeg
+    - assets/images/clothes.jpeg
+    - assets/images/accessories.jpeg
+
