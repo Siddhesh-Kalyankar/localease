@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import './orders.dart';
 import './feedback.dart';
 import './about.dart';
+import './paymentPage.dart'; // Import the payment page
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -183,6 +184,32 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   const SizedBox(height: 20), // Space for better padding
                 ],
+              ),
+            ),
+
+            // Proceed to Payment Button
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  // Navigate to PaymentPage
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PaymentPage(),
+                    ),
+                  );
+                },
+                child: Text(
+                  'Proceed to Payment',
+                  style: GoogleFonts.poppins(fontSize: 16),
+                ),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.black,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                ),
               ),
             ),
 
